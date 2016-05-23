@@ -171,7 +171,9 @@ if __name__ == "__main__":
                         default="usedrgbvalues.txt", help="File that contains "
                         "all the RGB values that have already been used up; "
                         "default is usedrgbvalues.txt.\n"
-                        "If the file does not exist it will be created.")
+                        "If the file does not exist it will be created, and "
+                        "if it exists, it will be read for used values and "
+                        "updated.")
 
     args = parser.parse_args()
 
