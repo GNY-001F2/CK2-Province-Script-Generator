@@ -1,6 +1,29 @@
 {
-  "name": "Ck2-province-script-generator",
-  "tagline": "Generates definitions.csv that contains basic mapping information for each province",
-  "body": "# CK2-Province-Script-Generator\r\n\r\nGenerates definitions.csv that contains basic mapping information for each \r\nprovince.\r\n\r\n##Instructions\r\n\r\n* You need Python 3. This script was written and tested on Python 3.5.1 but\r\nslightly older versions should work as well.\r\n\r\n* DO NOT try to run this script on Python 2. Python 3 and Python 2 are not\r\ncompatible with each other.\r\n\r\n* You can download the appropriate verison of Python 3 from\r\nhttps://www.python.org/downloads/\r\n  * If you use an OS with a package manager (most mainstream *nixes) you can\r\ndownload python3 from there if you do not already have it.\r\n\r\n* This program is invoked from a command line interface. I have only tested it\r\non a linux terminal, but you should be able to run it on a Windows Powershell\r\n(preferred) or Command Prompt without problems, especially with the default.\r\n\r\n* This program will create a .csv (default - definitions.csv) to store\r\nmapping information and another file (default - usedrgbvalues.txt) to store used\r\nrgb values\r\n\r\n* You can supply a list of already used values as well, by telling the program\r\nthe name of that file. The file should be stored in the same directory as your\r\npath.\r\n\r\n* Depending on what your default python executable is, on most machines you will\r\neither execute the program as \r\n  * `python3 psg.py [options]` OR\r\n  * `python psg.py [options]`\r\n  * Default options are supplied. Use `python psg.py -h` to learn what they are\r\nand how to customize their values.\r\n\r\nI hope you find this program useful!\r\n\r\nThis program is licensed under the GPLv2 only.\r\n",
+  "name": "CK2-Province-Script-Generator",
+  "tagline": "Generates definitions.csv that contains basic mapping information 
+for each province",
+  "body": "# CK2-Province-Script-Generator\r\n\r\nGenerates definitions.csv that 
+contains basic mapping information for each 
+\r\nprovince.\r\n\r\n##Instructions\r\n\r\n* You need Python 3. This script was 
+written and tested on Python 3.5.1 but\r\nslightly older versions should work as 
+well.\r\n\r\n* DO NOT try to run this script on Python 2. Python 3 and Python 2 
+are not\r\ncompatible with each other.\r\n\r\n* You can download the appropriate 
+verison of Python 3 from\r\nhttps://www.python.org/downloads/\r\n  * If you use 
+an OS with a package manager (most mainstream *nixes) you can\r\ndownload 
+python3 from there if you do not already have it.\r\n\r\n* This program is 
+invoked from a command line interface. I have only tested it\r\non a linux 
+terminal, but you should be able to run it on a Windows 
+Powershell\r\n(preferred) or Command Prompt without problems, especially with 
+the default.\r\n\r\n* This program will create a .csv (default - 
+definitions.csv) to store\r\nmapping information and another file (default - 
+usedrgbvalues.txt) to store used\r\nrgb values\r\n\r\n* You can supply a list of 
+already used values as well, by telling the program\r\nthe name of that file. 
+The file should be stored in the same directory as your\r\npath.\r\n\r\n* 
+Depending on what your default python executable is, on most machines you 
+will\r\neither execute the program as \r\n  * `python3 psg.py [options]` OR\r\n  
+* `python psg.py [options]`\r\n  * Default options are supplied. Use `python 
+psg.py -h` to learn what they are\r\nand how to customize their values.\r\n\r\nI 
+hope you find this program useful!\r\n\r\nThis program is licensed under the 
+GPLv2 only.\r\n",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
