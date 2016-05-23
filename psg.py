@@ -70,7 +70,7 @@ class psg:
             with open(self.__usedrgbvalues, "a", encoding="cp1252") \
             as usedrgbvalues:
                 for rgbvalue in _usedrgbvalues:
-                    usedrgbvalues.write(rgbvalue)
+                    usedrgbvalues.write(rgbvalue+"\n")
         except:
             print("Something went horribly wrong while opening targetfile.")
             exit()
