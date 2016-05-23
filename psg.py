@@ -37,74 +37,107 @@ class psg:
     def generate_province_list(self):
 
         try:
+
             with open(self.__provincefile, "r") as provincefile:
+
                 if self.__delimiter:
+
                     for line in provincefile:
+
                         self.__provincelist.extend(line.split(__delimiter))
+
                 else:
+
                     self.__provincelist.extend(provincefile.read().split())
 
         except:
+
             print("The province file that you specified does not exist...")
             exit()
 
     def write_provinces_to_file(self):
 
         global _reserved_rgb_values, _usedrgbvalues
+
         try:
+
             with open(self.__target, "a", encoding="cp1252") as targetfile:
+
                 import random
                 rgb = [0, 0, 0]
                 rgbstring = str(rgb[0])+";"+str(rgb[1])+";"+str(rgb[2])+";"
                 i = self.__startvalue
+
                 for province in self.__provincelist:
+
                     while rgbstring in _usedrgbvalues or rgb in \
                       _reserved_rgb_values:
+
                         rgb = [random.randrange(0, 255),
                                random.randrange(0, 255),
                                random.randrange(0, 255)]
                         rgbstring = \
                             str(rgb[0])+";"+str(rgb[1])+";"+str(rgb[2])+";"
+
                     targetfile.write(str(i)+";"+rgbstring+province+";x\n")
                     _usedrgbvalues.append(rgbstring)
                     i += 1
+
             with open(self.__usedrgbvalues, "a",
                       encoding="cp1252") as usedrgbvalues:
+
                 for rgbvalue in _usedrgbvalues:
+
                     usedrgbvalues.write(rgbvalue+"\n")
+
         except:
+
             print("Something went horribly wrong while opening targetfile.")
             exit()
 
 
 def check_values(args):
+
     global cwd, _usedrgbvalues, _reserved_rgb_values
+
     if cwd != args.path:
+
         try:
+
             os.chdir(args.path)
             cwd = os.getcwd()
+
         except:
+
             print("ERROR: Invalid path specified.")
             exit()
 
     if args.target[-4:] != ".csv":
+
         print("ERROR: Target name must be a .csv.")
         exit()
+
     try:
+
         with open(args.usedrgbvalues, "r", encoding="cp1252") as \
           _usedrgbvaluesfile:
+
             _usedrgbvalues += _usedrgbvaluesfile.read().split()
+
     except:
+
         _usedrgbvaluesfile = open(args.usedrgbvalues, "a", encoding="cp1252")
         _usedrgbvaluesfile.close()
 
     if args.startvalue < 1:
+
         print("Starting province number cannot be less than 1.")
         exit()
 
     return args
 
 if __name__ == "__main__":
+
     parser = \
         argparse.ArgumentParser(description="Generate a list of colour-mapped "
                                 "for your CK2 map.",
