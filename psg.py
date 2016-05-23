@@ -58,8 +58,8 @@ class psg:
                 rgbstring = str(rgb[0])+";"+str(rgb[1])+";"+str(rgb[2])+";"
                 i = self.__startvalue
                 for province in self.__provincelist:
-                    while \
-                    rgbstring in _usedrgbvalues or rgb in _reserved_rgb_values:
+                    while rgbstring in _usedrgbvalues or rgb in \
+                      _reserved_rgb_values:
                         rgb = [random.randrange(0, 255),
                                random.randrange(0, 255),
                                random.randrange(0, 255)]
@@ -68,8 +68,8 @@ class psg:
                     targetfile.write(str(i)+";"+rgbstring+province+";x\n")
                     _usedrgbvalues.append(rgbstring)
                     i += 1
-            with open(self.__usedrgbvalues, "a", encoding="cp1252") \
-            as usedrgbvalues:
+            with open(self.__usedrgbvalues, "a",
+                      encoding="cp1252") as usedrgbvalues:
                 for rgbvalue in _usedrgbvalues:
                     usedrgbvalues.write(rgbvalue+"\n")
         except:
@@ -92,15 +92,12 @@ def check_values(args):
         exit()
     try:
         with open(args.usedrgbvalues, "r", encoding="cp1252") as \
-        _usedrgbvaluesfile:
+          _usedrgbvaluesfile:
             _usedrgbvalues += _usedrgbvaluesfile.read().split()
     except:
         _usedrgbvaluesfile = open(args.usedrgbvalues, "a", encoding="cp1252")
         _usedrgbvaluesfile.close()
-    #except:
-        #print("ERROR: Something went seriously wrong when "
-              #"opening "+args.usedrgbvalues+".")
-        #exit()
+
     if args.startvalue < 1:
         print("Starting province number cannot be less than 1.")
         exit()
@@ -148,6 +145,6 @@ if __name__ == "__main__":
     args = check_values(args)
 
     obj = psg(args.provincefile, args.delimiter, args.target, args.startvalue,
-               args.usedrgbvalues)
+              args.usedrgbvalues)
     obj.generate_province_list()
     obj.write_provinces_to_file()
