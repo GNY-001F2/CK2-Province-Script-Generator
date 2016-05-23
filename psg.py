@@ -38,11 +38,11 @@ class psg:
 
         try:
             with open(self.__provincefile, "r") as provincefile:
-                if __delimiter:
+                if self.__delimiter:
                     for line in provincefile:
-                        __provincelist.extend(line.split(__delimiter))
+                        self.__provincelist.extend(line.split(__delimiter))
                 else:
-                    __provincelist.extend(provincefile.read().split())
+                    self.__provincelist.extend(provincefile.read().split())
 
         except:
             print("The province file that you specified does not exist...")
@@ -50,23 +50,25 @@ class psg:
 
     def write_provinces_to_file(self):
 
+        global _reserved_rgb_values, _usedrgbvalues
         try:
-            with open(self.__target, "a") as targetfile:
+            with open(self.__target, "a", encoding="cp1252") as targetfile:
                 import random
                 rgb = [0, 0, 0]
                 rgbstring = str(rgb[0])+";"+str(rgb[1])+";"+str(rgb[2])+";"
                 i = self.__startvalue
                 for province in self.__provincelist:
-                    while (rgbstring in _usedrgbvalues) or
-                    (rgb in _reserved_rgb_values):
+                    while \
+                    rgbstring in _usedrgbvalues or rgb in _reserved_rgb_values:
                         rgb = [random.randrange(0, 255),
                                random.randrange(0, 255),
                                random.randrange(0, 255)]
                         rgbstring = \
                             str(rgb[0])+";"+str(rgb[1])+";"+str(rgb[2])+";"
-                    targetfile.write(str(i)+";"+rgbstring+province+";x")
+                    targetfile.write(str(i)+";"+rgbstring+province+";x\n")
                     _usedrgbvalues.append(rgbstring)
-            with open(self.__usedrgbvalues, "a") as usedrgbvalues:
+            with open(self.__usedrgbvalues, "a", encoding="cp1252") \
+            as usedrgbvalues:
                 for rgbvalue in _usedrgbvalues:
                     usedrgbvalues.write(rgbvalue)
         except:
@@ -75,6 +77,7 @@ class psg:
 
 
 def check_values(args):
+    global cwd, _usedrgbvalues, _reserved_rgb_values
     if cwd != args.path:
         try:
             os.chdir(args.path)
@@ -83,19 +86,20 @@ def check_values(args):
             print("ERROR: Invalid path specified.")
             exit()
 
-    if args.target[:4] != ".csv":
+    if args.target[-4:] != ".csv":
         print("ERROR: Target name must be a .csv.")
         exit()
     try:
-        with open(args.usedrgbvalues, "r") as _usedrgbvaluesfile:
+        with open(args.usedrgbvalues, "r", encoding="cp1252") as \
+        _usedrgbvaluesfile:
             _usedrgbvalues += _usedrgbvaluesfile.read().split()
-    except FileNotFoundError:
-        _usedrgbvaluesfile = open(args.usedrgbvalues, "a")
-        _usedrgbvaluesfile.close()
     except:
-        print("ERROR: Something went seriously wrong when "
-              "opening"+args.usedrgbvalues+".")
-        exit()
+        _usedrgbvaluesfile = open(args.usedrgbvalues, "a", encoding="cp1252")
+        _usedrgbvaluesfile.close()
+    #except:
+        #print("ERROR: Something went seriously wrong when "
+              #"opening "+args.usedrgbvalues+".")
+        #exit()
     if args.startvalue < 1:
         print("Starting province number cannot be less than 1.")
         exit()
@@ -104,8 +108,8 @@ def check_values(args):
 
 if __name__ == "__main__":
     parser = \
-        argparse.ArgumentParser(description="Generate definitions.csv for your"
-                                "CK2 map.",
+        argparse.ArgumentParser(description="Generate a list of colour-mapped "
+                                "for your CK2 map.",
                                 formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument("-p", "--path", default=os.getcwd(), help="The "
                         "absolute or relative to current directory path "
@@ -142,7 +146,7 @@ if __name__ == "__main__":
 
     args = check_values(args)
 
-    psg.obj = (args.provincefile, args.delimiter, args.target, args.startvalue,
+    obj = psg(args.provincefile, args.delimiter, args.target, args.startvalue,
                args.usedrgbvalues)
     obj.generate_province_list()
     obj.write_provinces_to_file()
