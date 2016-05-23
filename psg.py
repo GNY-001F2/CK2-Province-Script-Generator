@@ -67,6 +67,7 @@ class psg:
                             str(rgb[0])+";"+str(rgb[1])+";"+str(rgb[2])+";"
                     targetfile.write(str(i)+";"+rgbstring+province+";x\n")
                     _usedrgbvalues.append(rgbstring)
+                    i += 1
             with open(self.__usedrgbvalues, "a", encoding="cp1252") \
             as usedrgbvalues:
                 for rgbvalue in _usedrgbvalues:
