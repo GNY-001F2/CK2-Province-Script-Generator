@@ -24,11 +24,10 @@ _usedrgbvalues = []
 
 class psg:
 
-    def __init__(self, provincefile, delimiter, target, startvalue,
+    def __init__(self, provincefile, target, startvalue,
                  usedrgbvalues):
 
         self.__provincefile = provincefile
-        self.__delimiter = delimiter
         self.__target = target
         self.__startvalue = startvalue
         self.__usedrgbvalues = usedrgbvalues
@@ -38,17 +37,38 @@ class psg:
 
         try:
 
-            with open(self.__provincefile, "r") as provincefile:
+            with open(self.__provincefile, "r", encoding="cp1252") as \
+              provincefile:
 
-                if self.__delimiter:
+                rawpflines = provincefile.read().split("\n")
+                cleanedpflines = []
 
-                    for line in provincefile:
+                for line in rawpflines:
 
-                        self.__provincelist.extend(line.split(__delimiter))
+                    if line[0:2] == "//":
 
-                else:
+                        continue
 
-                    self.__provincelist.extend(provincefile.read().split())
+                    cleanedpflines.append(line.split())
+
+                for provinceelements in cleanedpflines:
+
+                    provinceelementscombined = ""
+
+                    for provinceelement in provinceelements:
+
+                        provinceelementscombined += provinceelement + " "
+
+                    if provinceelementscombined == '':
+
+                        continue
+
+                    if provinceelementscombined[-1:] == " ":
+
+                        provinceelementscombined = \
+                          provinceelementscombined[:-1]
+
+                    self.__provincelist.append(provinceelementscombined)
 
         except:
 
@@ -67,7 +87,6 @@ class psg:
                 rgb = [0, 0, 0]
                 rgbstring = str(rgb[0])+";"+str(rgb[1])+";"+str(rgb[2])+";"
                 i = self.__startvalue
-
                 for province in self.__provincelist:
 
                     while rgbstring in _usedrgbvalues or rgb in \
@@ -149,10 +168,6 @@ if __name__ == "__main__":
     parser.add_argument("-f", "--provincefile", default="provinces.txt",
                         help="The name of the file contaiing your list of "
                         "provinces.")
-    parser.add_argument("-d", "--delimiter", default=None, help="If set, the "
-                        "delimiter to use to split all the names in every "
-                        "line. Useful if you have many names.\nThe default is "
-                        "None, which means the standard whitespace is used.")
     parser.add_argument("-t", "--target", default="definitions.csv", help=""
                         "Contains the province names, province number and "
                         "associated RGB values. By default it is named "
@@ -179,7 +194,7 @@ if __name__ == "__main__":
 
     args = check_values(args)
 
-    obj = psg(args.provincefile, args.delimiter, args.target, args.startvalue,
+    obj = psg(args.provincefile, args.target, args.startvalue,
               args.usedrgbvalues)
     obj.generate_province_list()
     obj.write_provinces_to_file()

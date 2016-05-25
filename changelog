@@ -1,0 +1,10 @@
+New in v2.0 released on 2016-05-24:
+
+ - Dropped support for delimiters to decrease my maintenance overhead.
+   Consequently, the -d flag no longer works in this release.
+   Every province should be listed in a separate line.
+   If there are extra spaces between words they will be condensed to one space.
+   Similarly, leading and trailing spaces in every line will be trimmed.
+ - Added support for C-style single-line comments denoted with '//'. NOTE: Do not list
+   province names in the same line as a comment, that is not supported.
+ - The script now supports the presence of empty lines for improved formatting.
