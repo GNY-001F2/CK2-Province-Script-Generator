@@ -1,3 +1,34 @@
+New in 2.1.0 released on 2016-05-26:
+
+ - Added support for comments right after province name. Once the "//" starts
+   everything after it will be skipped in that line.
+    Example, the following in provinces.txt:
+
+    ...
+    // a bunch of provinces here
+    ...
+    York
+    ...
+    Rome // This should be de jure capital Italy
+    ...
+    // Swedish provinces
+    ...
+    Vestergautland
+    ...
+
+    would give the following in definitions.csv:
+
+    ...
+    26;242;56;20;York;x
+    ...
+    82;92;78;252;Rome;x
+    ...
+    129;83;128;99;Vestergautland;
+    ...
+
+    Note: "..." is skipped lines.
+ - Added basic documentation for each function in the program.
+
 New in v2.0 released on 2016-05-24:
 
  - Dropped support for delimiters to decrease my maintenance overhead.

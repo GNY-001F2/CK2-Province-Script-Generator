@@ -23,7 +23,11 @@ _usedrgbvalues = []
 
 
 class psg:
-
+    '''
+    Objects of this class generates the province script. Using classes helps
+    when generating many files together as each file can be assigned to a
+    different object.
+    '''
     def __init__(self, provincefile, target, startvalue,
                  usedrgbvalues):
 
@@ -34,7 +38,10 @@ class psg:
         self.__provincelist = []
 
     def generate_province_list(self):
-
+        '''
+        Parse the file containing all the province names to prepare the list of
+        provinces that have to be written to the definitions.csv file.
+        '''
         try:
 
             with open(self.__provincefile, "r", encoding="cp1252") as \
@@ -57,6 +64,11 @@ class psg:
 
                     for provinceelement in provinceelements:
 
+                        # Use this to skip comments made beside a province
+                        # name
+                        if provinceelement[0:2] == "//":
+                            break
+
                         provinceelementscombined += provinceelement + " "
 
                     if provinceelementscombined == '':
@@ -76,7 +88,10 @@ class psg:
             exit()
 
     def write_provinces_to_file(self):
-
+        '''
+        Write the list of provinces to the .csv file with the required RGB
+        values and the terminator (;x)
+        '''
         global _reserved_rgb_values, _usedrgbvalues
 
         try:
@@ -111,12 +126,17 @@ class psg:
 
         except:
 
-            print("Something went horribly wrong while opening targetfile.")
+            print("Something went horribly wrong while opening "
+                  ""+self.__target+"or "+self.__usedrgbvalues+".")
             exit()
 
 
 def check_values(args):
-
+    '''
+    Take the arguments required by a psg object, and check if the arguments
+    are correct.
+    NOTE: args is a namespace.
+    '''
     global cwd, _usedrgbvalues, _reserved_rgb_values
 
     if cwd != args.path:
