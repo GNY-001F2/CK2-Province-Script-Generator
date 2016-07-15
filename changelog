@@ -1,3 +1,11 @@
+New in 2.1.1 released on 2016-07-15:
+
+ - Fixed a major bug that caused usedrgbvalues.txt to grow exponentially with
+   multiple uses due to an incorrectly set write mode
+ - Added compactor.py to assist existing files to be shrunk down for
+   significant file size decreases depending on the number of repeated lines
+   in the list.
+
 New in 2.1.0 released on 2016-05-26:
 
  - Added support for comments right after province name. Once the "//" starts
