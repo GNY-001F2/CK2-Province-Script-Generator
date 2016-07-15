@@ -117,7 +117,7 @@ class psg:
                     _usedrgbvalues.append(rgbstring)
                     i += 1
 
-            with open(self.__usedrgbvalues, "a",
+            with open(self.__usedrgbvalues, "w",
                       encoding="cp1252") as usedrgbvalues:
 
                 for rgbvalue in _usedrgbvalues:
@@ -196,7 +196,7 @@ if __name__ == "__main__":
                         "conflicts. Target name must end in .csv.\n"
                         "WARNING: Use --startvalue to avoid conflicts with "
                         "province numbers.\n"
-                        "WARNING: Make sure that your usedbgrvalues.txt "
+                        "WARNING: Make sure that your usedrgbvalues.txt "
                         "is up to date and contains the values used in any "
                         "other partial province files for your map.")
     parser.add_argument("--startvalue", default=1, type=int, help="Integer "
